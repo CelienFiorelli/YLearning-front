@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+/* Dans votre fichier CSS (par exemple, styles.css) */
+@font-face {
+  font-family: 'Monserrat';
+  src: url('./fonts/Montserrat-Regular.otf') format('otf');
+  /* Ajoutez d'autres formats de police si nécessaire (woff, ttf, etc.) */
+}
+
+body {
+  font-family: 'Monserrat', sans-serif;
+}
+
+.primary-bg {
+  background-color: #85cb33;
+}
+
+.primary-border {
+  border-color: #85cb33;
+}

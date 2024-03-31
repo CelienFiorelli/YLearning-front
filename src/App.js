@@ -1,25 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import AuthProvider from "./components/AuthProvider";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LandingPage from "./views/LandingPage";
+import LoginPage from "./views/LoginPage";
+import RegisterPage from "./views/RegisterPage";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import Dashboard from "./views/Dashboard";
+import Preview from "./views/Preview";
+import Chat from "./views/Chat";
+import { WebSocketProvider } from "./views/WebSocketProvider";
+import Profil from "./views/Profil";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/">
+            <Route index element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/verify/:verifyToken" element={<Preview />} />
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/chat" element={
+                <WebSocketProvider>
+                  <Chat />
+                </WebSocketProvider>
+              } />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/profil" element={<Profil />} />
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
