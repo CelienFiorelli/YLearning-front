@@ -5,7 +5,7 @@ import { SideBar } from "./SideBar";
 import background from '../icons/background.svg'
 
 const Dashboard = () => {
-  const { userData } = useContext(AuthContext);
+  const { username } = useContext(AuthContext);
 
   return (
     <div className="h-screen flex justify-end" style={{ backgroundImage: `url(${background})`, backgroundRepeat: 'no-repeat', backgroundSize: '100%' }}>
@@ -13,7 +13,7 @@ const Dashboard = () => {
         <SideBar />
       </div>
       <div className="h-full mx-2 backdrop-blur-sm" style={{ height: 'calc(100% - 8px)', width: 'calc(100% - 96px)' }}>
-        <h1>Connecté en tant {userData && (userData.firstname + ' ' + userData.lastname)}</h1>
+        <h1>Connecté en tant {username}</h1>
 
       </div>
     </div>

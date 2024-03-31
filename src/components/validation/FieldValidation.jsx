@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const loginValidationSchema = yup.object().shape({
-  mail: yup.string().required("l'identifiant est obligatoire"),
+  username: yup.string().required("l'identifiant est obligatoire"),
   password: yup.string().required("Le mot de passe est obligatoire"),
 });
 

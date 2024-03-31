@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import {
   getUserToken,
-  getUserData,
   createUser,
   verifyMail,
 } from "../services/GetUsers";
@@ -10,22 +9,23 @@ export const AuthContext = createContext(null);
 
 const AuthProvider = (props) => {
   const [token, setToken] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const [username, setUsername] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     const localToken = localStorage.getItem("token");
     if (localToken && !token) {
       setToken(localToken);
-      (async () => setUserData(await getUserData(localToken)))();
     }
   }, []);
 
   const login = async (username, password) => {
     try {
-      const acces_token = await getUserToken(username, password);
-      console.log(acces_token)      
-    return true;
+      const { token } = await getUserToken(username, password);
+      setToken(token);
+      setUsername(username)
+      localStorage.setItem("token", token);
+      return true;
     } catch (error) {
       setErrorMessage(error.message);
       return false;
@@ -47,8 +47,7 @@ const AuthProvider = (props) => {
       const { token } = verification;
       if (token) {
         setToken(token);
-        console.log(verification)
-        setUserData(verification);
+        console.log(verification);
         localStorage.setItem("token", token);
       }
       return true;
@@ -59,7 +58,7 @@ const AuthProvider = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ login, register, connect, token, userData, errorMessage }}
+      value={{ login, register, connect, token, username, errorMessage }}
     >
       {props.children}
     </AuthContext.Provider>

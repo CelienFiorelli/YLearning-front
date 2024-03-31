@@ -20,14 +20,14 @@ const LoginPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      mail: "",
+      username: "",
       password: "",
     },
     validationSchema: loginValidationSchema,
     validateOnChange: false,
     onSubmit: async (values) => {
-      if (await login(values.mail, values.password)) {
-        console.log("ça marche merci")
+      if (await login(values.username, values.password)) {
+        navigate("/dashboard")
       }
     },
   });
@@ -51,7 +51,7 @@ const LoginPage = () => {
                   <div className="flex justify-center">
                     {errorMessage && (
                       <span className="text-sm text-center font-semibold text-red-400">
-                        Mail ou mot de passe incorrect
+                        Username ou mot de passe incorrect
                       </span>
                     )}
                   </div>
@@ -60,16 +60,16 @@ const LoginPage = () => {
                   <form className="space-y-4" onSubmit={formik.handleSubmit}>
                     <div className="w-96">
                       <label
-                        htmlFor="mail"
+                        htmlFor="username"
                         className="text-gray-900 dark:text-white"
                       >
-                        Mail :
+                        Nom utilisateur :
                         <TextField
                           type="text"
-                          name="mail"
-                          error={formik.errors.mail}
-                          placeholder="E-Mail"
-                          value={formik.values.mail}
+                          name="username"
+                          error={formik.errors.username}
+                          placeholder="usernale"
+                          value={formik.values.username}
                           onChange={formik.handleChange}
                         />
                       </label>

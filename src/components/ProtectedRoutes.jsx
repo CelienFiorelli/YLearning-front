@@ -4,7 +4,7 @@ import { AuthContext } from "./AuthProvider";
 
 const ProtectedRoutes = () => {
   const token = localStorage.getItem("token");
-  return token ? <Outlet /> : <Navigate to="/auth/login" />;
+  return token ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default ProtectedRoutes;

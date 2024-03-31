@@ -2,16 +2,14 @@ import axios from "../axiosConfig";
 
 export const getUserToken = async (username, password) => {
   try {
-    const response = await axios.get(`/api/login_check`, {params: {
-      username: username,
-      password: password,
-      headers: {
-        'Content-Type': 'application/json'
-    }
-    }});
+    const response = await axios.post(`/api/login_check`, {
+        username,
+        password,
+
+    });
     return response.data;
   } catch (error) {
-    throw error.response.data
+    throw error.response.data;
   }
 };
 export const getDomains = async () => {
@@ -49,8 +47,8 @@ export const createUser = async (user) => {
     const response = await axios.post(`auth/register`, user);
     return response.status;
   } catch (error) {
-    console.log(error.response)
-    throw error.response
+    console.log(error.response);
+    throw error.response;
   }
 };
 
@@ -59,7 +57,6 @@ export const verifyMail = async (verifyToken) => {
     const response = await axios.get(`auth/verification?token=${verifyToken}`);
     return response.data;
   } catch (error) {
-    throw error.response
-    ;
+    throw error.response;
   }
 };
