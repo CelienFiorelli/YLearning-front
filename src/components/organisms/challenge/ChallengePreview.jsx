@@ -2,30 +2,47 @@ import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider";
 import Base from "../Base";
-import { getChallenge, getChallengeReviews } from "../../../services/challengeRequest";
-import { useParams } from "react-router";
+import { createChallengeComplete, getChallenge, getChallengeReviews, getTechnologies } from "../../../services/challengeRequest";
+import { useNavigate, useParams } from "react-router";
 import { AiTwotoneExperiment } from "react-icons/ai";
 import LevelBadge from '../../atoms/LevelBadge';
 import { IoMdTime } from "react-icons/io";
 import ReviewCard from "../../molecules/challenge/ReviewCard";
 import { MdOutlineContentPasteSearch } from "react-icons/md";
 import { GiPencil } from "react-icons/gi";
+import Select from "react-select";
 
 const ChallengePreview = () => {
     const { id } = useParams();
     const { token } = useContext(AuthContext);
     const [challenge, setChallenge] = useState(null);
     const [reviews, setReviews] = useState([]);
+    const [technologies, setTechnologies] = useState([]);
+    const [selectedTechnologie, setSelectedTechnologie] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!token) return
         (async () => {
-            const challengeRes = await getChallenge(id, token);
-            setChallenge(challengeRes);
-            const reviewRes = await getChallengeReviews(id, token);
-            setReviews(reviewRes);
+            const challengesRes = await getChallenge(id, token);
+            setChallenge(challengesRes);
+            const reviewsRes = await getChallengeReviews(id, token);
+            setReviews(reviewsRes);
+            const technologiesRes = await getTechnologies(token);
+            console.log(technologiesRes);
+            setTechnologies(technologiesRes.map(t => {
+                return {
+                    label: t.name,
+                    value: t.id
+                }
+            }));
         })();
     }, [token])
+
+    const startChallenge = async () => {
+        const challengeComplete = await createChallengeComplete(selectedTechnologie, id, token);
+        navigate(`/challenges/${challengeComplete.id}/complete`)
+    }
 
     return (
         <Base>
@@ -55,15 +72,29 @@ const ChallengePreview = () => {
                                 Problème à résoudre
                                 <GiPencil />
                             </div>
-                            <div className="text-justif bg-slate-100 text-slate-800 p-2 rounded-sm decoration-dotted underline decoration-1 underline-offset-4">
+                            <div className="text-justify bg-slate-100 text-slate-800 p-2 rounded-sm decoration-dotted underline decoration-1 underline-offset-4">
                                 {challenge.description}
                             </div>
                         </div>
-                        <div>
-                            <button className="animate-bounce flex items-center gap-2 bg-green-900 text-white px-3 py-1 rounded-md border border-green-800">
-                                <MdOutlineContentPasteSearch />
-                                Commencer
-                            </button>
+                        <div className="flex gap-8 justify-center items-end">
+                            <div>
+                                <div className="text-slate-200 mb-1">Avec quel langage voulez-vous faire ce challenge ?</div>
+                                <Select
+                                    onChange={(t) => setSelectedTechnologie(t.value)}
+                                    options={technologies}
+                                    name="technologie"
+                                    placeholder="Sélectionnez une technologie"
+                                    className="outline-none"
+                                />
+                            </div>
+                            <div>
+                                <button className={`flex items-center gap-2 bg-green-900 text-white px-3 py-1 rounded-md border border-green-800 ${selectedTechnologie ? 'animate-bounce':''}`}
+                                        onClick={() => startChallenge()}
+                                        disabled={!selectedTechnologie}>
+                                    <MdOutlineContentPasteSearch />
+                                    Commencer
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>}

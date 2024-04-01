@@ -9,6 +9,7 @@ import Dashboard from "./components/organisms/Dashboard";
 import Challenge from "./components/organisms/challenge/Challenge";
 import Course from "./components/organisms/Course";
 import ChallengePreview from "./components/organisms/challenge/ChallengePreview";
+import ChallengeComplete from "./components/organisms/challenge/ChallengeComplete";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/courses" element={<Course />} />
               <Route path="/challenges">
                 <Route path="" element={<Challenge />} />
+                <Route path=":id/complete" element={<ChallengeComplete />} />
                 <Route path=":id" element={<ChallengePreview />} />
               </Route>
             </Route>
