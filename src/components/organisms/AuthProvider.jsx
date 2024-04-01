@@ -1,9 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import {
-  getUserToken,
-  createUser,
-  verifyMail,
-} from "../../services/userRequest";
+import { getUserToken, createUserPersonna } from "../../services/userRequest";
 
 export const AuthContext = createContext(null);
 
@@ -23,7 +19,7 @@ const AuthProvider = (props) => {
     try {
       const { token } = await getUserToken(username, password);
       setToken(token);
-      setUsername(username)
+      setUsername(username);
       localStorage.setItem("token", token);
       return true;
     } catch (error) {
@@ -32,25 +28,12 @@ const AuthProvider = (props) => {
     }
   };
 
-  const register = async (userinfo) => {
+  const register = async (email, username, phone, password) => {
     try {
-      const newUser = await createUser(userinfo);
-      return newUser;
-    } catch (error) {
-      return false;
-    }
-  };
+      const user = await createUserPersonna(email, username, phone, password);
+      user && login(username, password);
 
-  const connect = async (verifyToken) => {
-    try {
-      const verification = await verifyMail(verifyToken);
-      const { token } = verification;
-      if (token) {
-        setToken(token);
-        console.log(verification);
-        localStorage.setItem("token", token);
-      }
-      return true;
+      return user;
     } catch (error) {
       return false;
     }
@@ -58,7 +41,7 @@ const AuthProvider = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ login, register, connect, token, username, errorMessage }}
+      value={{ login, register, token, username, errorMessage }}
     >
       {props.children}
     </AuthContext.Provider>
