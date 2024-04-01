@@ -1,10 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import {
-  getUserToken,
-  createUser,
-  verifyMail,
-  getUserData,
-} from "../../services/userRequest";
+import { getUserToken, createUserPersonna } from "../../services/userRequest";
 
 export const AuthContext = createContext(null);
 
@@ -41,25 +36,12 @@ const AuthProvider = (props) => {
     }
   };
 
-  const register = async (userinfo) => {
+  const register = async (email, username, phone, password) => {
     try {
-      const newUser = await createUser(userinfo);
-      return newUser;
-    } catch (error) {
-      return false;
-    }
-  };
+      const user = await createUserPersonna(email, username, phone, password);
+      user && login(username, password);
 
-  const connect = async (verifyToken) => {
-    try {
-      const verification = await verifyMail(verifyToken);
-      const { token } = verification;
-      if (token) {
-        setToken(token);
-        console.log(verification);
-        localStorage.setItem("token", token);
-      }
-      return true;
+      return user;
     } catch (error) {
       return false;
     }

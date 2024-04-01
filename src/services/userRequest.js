@@ -3,29 +3,27 @@ import axios from "../axiosConfig";
 export const getUserToken = async (username, password) => {
   try {
     const response = await axios.post(`/api/login_check`, {
-        username,
-        password,
-
+      username,
+      password,
     });
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 };
-export const getDomains = async () => {
+
+export const createUserPersonna = async (email, username, phone, password) => {
   try {
-    const response = await axios.get(`domain`);
+    const response = await axios.post(`/api/register`, {
+      email: email,
+      username: username,
+      phone: phone,
+      password: password,
+    });
+    getUserToken(username, password);
     return response.data;
   } catch (error) {
-    throw new Error(error);
-  }
-};
-export const getSkills = async (domain) => {
-  try {
-    const response = await axios.get(`/skills/get-by-domain/${domain}`);
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
+    throw error.response.data;
   }
 };
 
@@ -48,15 +46,6 @@ export const createUser = async (user) => {
     return response.status;
   } catch (error) {
     console.log(error.response);
-    throw error.response;
-  }
-};
-
-export const verifyMail = async (verifyToken) => {
-  try {
-    const response = await axios.get(`auth/verification?token=${verifyToken}`);
-    return response.data;
-  } catch (error) {
     throw error.response;
   }
 };

@@ -6,18 +6,10 @@ export const loginValidationSchema = yup.object().shape({
 });
 
 export const signUpValidationSchema = yup.object().shape({
-  firstname: yup
-    .string()
-    .min(3, ({ min }) => `Le nom doit contenir minimum ${min} caractères`)
-    .required("Le prénom utilisateur est obligatoire"),
-  lastname: yup
-    .string()
-    .min(3, ({ min }) => `Le nom doit contenir minimum ${min} caractères`)
-    .required("Le nom utilisateur est obligatoire"),
   username: yup
     .string()
     .min(3, ({ min }) => `Le nom doit contenir minimum ${min} caractères`)
-    .required("Le pseudo utilisateur est obligatoire"),
+    .required("Le prénom utilisateur est obligatoire"),
   email: yup
     .string()
     .email("Format email non valide")
