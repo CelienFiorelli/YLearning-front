@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { AuthContext } from "../components/AuthProvider";
+import { AuthContext } from "../organisms/AuthProvider";
 import { useParams, useNavigate } from "react-router";
 
 const Preview = () => {

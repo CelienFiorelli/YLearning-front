@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { TextField } from "../components/TextField";
+import { TextField } from "../atoms/TextField";
 import { useFormik } from "formik";
-import { getDomains } from "../services/GetUsers";
-import { signUpValidationSchema } from "../components/validation/FieldValidation";
+import { getDomains } from "../../services/GetUsers";
+import { signUpValidationSchema } from "../validation/FieldValidation";
 import Select from "react-select";
-import Button from "../components/Button";
-import { AuthContext } from "../components/AuthProvider";
+import Button from "../atoms/Button";
+import { AuthContext } from "./AuthProvider";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import { Base } from "./unauthentificate/Base";
+import Navbar from "../Navbar";
+import { Base } from "../../views/unauthentificate/Base";
 import { ToastContainer, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
 

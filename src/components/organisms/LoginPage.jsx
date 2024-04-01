@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
-import { TextField } from "../components/TextField";
+import { TextField } from "../atoms/TextField";
 import { useFormik } from "formik";
-import { loginValidationSchema } from "../components/validation/FieldValidation";
-import { Base } from "./unauthentificate/Base";
-import { AuthContext } from "../components/AuthProvider";
+import { loginValidationSchema } from "../validation/FieldValidation";
+import { Base } from "../../views/unauthentificate/Base";
+import { AuthContext } from "./AuthProvider";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/Button";
-import Navbar from "../components/Navbar";
-import CustomModal from "../components/CustomModal";
+import Button from "../atoms/Button";
+import Navbar from "../Navbar";
+import CustomModal from "../CustomModal";
 
 const LoginPage = () => {
   const navigate = useNavigate();

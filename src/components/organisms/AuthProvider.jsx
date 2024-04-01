@@ -3,7 +3,7 @@ import {
   getUserToken,
   createUser,
   verifyMail,
-} from "../services/GetUsers";
+} from "../../services/GetUsers";
 
 export const AuthContext = createContext(null);
 

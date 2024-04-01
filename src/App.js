@@ -1,14 +1,13 @@
-import AuthProvider from "./components/AuthProvider";
+import AuthProvider from "./components/organisms/AuthProvider";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "./views/LandingPage";
-import LoginPage from "./views/LoginPage";
-import RegisterPage from "./views/RegisterPage";
+import LoginPage from "./components/organisms/LoginPage";
+import RegisterPage from "./components/organisms/RegisterPage";
 import ProtectedRoutes from "./components/ProtectedRoutes";
-import Dashboard from "./views/Dashboard";
-import Preview from "./views/Preview";
-import Chat from "./views/Chat";
-import { WebSocketProvider } from "./views/WebSocketProvider";
-import Profil from "./views/Profil";
+import Preview from "./components/atoms/Preview";
+import Profile from "./components/organisms/Profile";
+import Dashboard from "./components/organisms/Dashboard";
+import Challenge from "./components/organisms/Challenge";
+import Course from "./components/organisms/Course";
 
 function App() {
   return (
@@ -20,13 +19,10 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/verify/:verifyToken" element={<Preview />} />
             <Route element={<ProtectedRoutes />}>
-              <Route path="/chat" element={
-                <WebSocketProvider>
-                  <Chat />
-                </WebSocketProvider>
-              } />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/profil" element={<Profil />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/course" element={<Course />} />
+              <Route path="/challenge" element={<Challenge />} />
             </Route>
           </Route>
         </Routes>

@@ -1,5 +1,4 @@
 import React from "react";
-import footer from "../../icons/footer.svg";
 import bottom_background from "../../icons/bottom_background.svg";
 import top_background from "../../icons/top_background.svg";
 
