@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Base } from "../../views/unauthentificate/Base";
 import Link from "../atoms/Link";
 import { ToastContainer, toast } from "react-toastify";
+import Navbar from "../Navbar";
 import "react-toastify/dist/ReactToastify.css";
 
 const RegisterPage = () => {
@@ -42,6 +43,7 @@ const RegisterPage = () => {
 
   return (
     <Base>
+        <Navbar />
       <div className="flex justify-center m-14">
         <div>
           <div className="relative p-4 w-full max-w-md max-h-full">

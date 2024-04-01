@@ -8,7 +8,7 @@ export const SectionsCard = ({sections, index }) => {
                 <div className="font-semibold text-lg text-white">Chapitre {index}</div>
             </div>
             <div className="w-full flex">
-                <div className="w-full text-clip overflow-hidden mb-4">
+                <div className="w-full text-clip overflow-hidden">
                     {sections.content}
                 </div>
             </div>

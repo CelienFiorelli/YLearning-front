@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { getUserToken, createUserPersonna } from "../../services/userRequest";
+import { getUserToken, createUserPersonna, getUserData } from "../../services/userRequest";
 
 export const AuthContext = createContext(null);
 
@@ -49,7 +49,7 @@ const AuthProvider = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ login, register, connect, token, username, userId, errorMessage }}
+      value={{ login, register, token, username, userId, errorMessage }}
     >
       {props.children}
     </AuthContext.Provider>
