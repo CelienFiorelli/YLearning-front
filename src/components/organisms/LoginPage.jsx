@@ -7,12 +7,10 @@ import { AuthContext } from "./AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Button from "../atoms/Button";
 import Navbar from "../Navbar";
-import CustomModal from "../CustomModal";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login, token, errorMessage } = useContext(AuthContext);
-  const [viewModal, setViewModal] = useState(false);
 
   if (token) {
     navigate("/dashboard");
@@ -100,7 +98,7 @@ const LoginPage = () => {
                     <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                       Pas de compte ?{" "}
                       <a
-                        onClick={() => navigate("/auth/register")}
+                        onClick={() => navigate("/register")}
                         className="text-lime-400 hover:underline cursor-pointer dark:text-lime-500"
                       >
                         Créer un compte
