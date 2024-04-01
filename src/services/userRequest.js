@@ -31,7 +31,7 @@ export const getSkills = async (domain) => {
 
 export const getUserData = async (token) => {
   try {
-    const response = await axios.get(`/auth/whoami`, {
+    const response = await axios.get(`/api/user`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

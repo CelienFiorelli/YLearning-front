@@ -3,6 +3,7 @@ import {
   getUserToken,
   createUser,
   verifyMail,
+  getUserData,
 } from "../../services/userRequest";
 
 export const AuthContext = createContext(null);
@@ -10,20 +11,28 @@ export const AuthContext = createContext(null);
 const AuthProvider = (props) => {
   const [token, setToken] = useState(null);
   const [username, setUsername] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     const localToken = localStorage.getItem("token");
     if (localToken && !token) {
       setToken(localToken);
+      (async () => {
+        const { id, username } = await getUserData(localToken);
+        setUsername(username);
+        setUserId(id);
+      })();
     }
   }, []);
 
-  const login = async (username, password) => {
+  const login = async (usernamePost, password) => {
     try {
-      const { token } = await getUserToken(username, password);
+      const { token } = await getUserToken(usernamePost, password);
       setToken(token);
+      const { id, username } = await getUserData(token);
       setUsername(username)
+      setUserId(id)
       localStorage.setItem("token", token);
       return true;
     } catch (error) {
@@ -58,7 +67,7 @@ const AuthProvider = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ login, register, connect, token, username, errorMessage }}
+      value={{ login, register, connect, token, username, userId, errorMessage }}
     >
       {props.children}
     </AuthContext.Provider>
