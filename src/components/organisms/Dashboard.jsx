@@ -8,7 +8,10 @@ const Dashboard = () => {
 
   return (
     <Base>
-        <h1>Connecté en tant {username} dans dashboard</h1>
+      <div className="text-white">
+          <div className="text-xl font-semibold mt-12">Bienvenue {username}</div>
+          <div>Vous pouvez commencer votre navigation en allant voir les cours ou les challenges depuis la barre de navigation</div>
+      </div>
     </Base>
   )
 };
