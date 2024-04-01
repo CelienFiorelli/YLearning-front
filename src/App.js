@@ -21,8 +21,8 @@ function App() {
             <Route element={<ProtectedRoutes />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/course" element={<Course />} />
-              <Route path="/challenge" element={<Challenge />} />
+              <Route path="/courses" element={<Course />} />
+              <Route path="/challenges" element={<Challenge />} />
             </Route>
           </Route>
         </Routes>

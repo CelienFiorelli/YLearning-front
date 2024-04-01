@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SideBar } from "../molecules/SideBar";
+import { AuthContext } from "./AuthProvider";
 
 const Base = ({ children }) => {
   return (
-    <div className="h-screen flex justify-end">
+    <div className="h-screen flex justify-end bg-[#323436]">
       <div className="relative" style={{ height: '100%', width: 72 }}>
         <SideBar />
       </div>

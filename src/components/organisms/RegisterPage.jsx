@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { TextField } from "../atoms/TextField";
 import { useFormik } from "formik";
-import { getDomains } from "../../services/GetUsers";
+import { getDomains } from "../../services/userRequest";
 import { signUpValidationSchema } from "../validation/FieldValidation";
 import Select from "react-select";
 import Button from "../atoms/Button";
