@@ -4,6 +4,7 @@ import { AiTwotoneExperiment } from "react-icons/ai";
 import { MdOutlineSettings } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import SidebarItem from "../atoms/sidebar/SidebarItem";
+import { IoMdHome } from "react-icons/io";
 
 export const SideBar = () => {
   const [isDeploy, setIsDeploy] = useState()
@@ -13,6 +14,7 @@ export const SideBar = () => {
     <div className="absolute bg-[#687074] rounded-r-md z-50 h-full ease-in duration-100 border-r" onMouseLeave={() => setIsDeploy(false)} onMouseEnter={() => setIsDeploy(true)} style={{ width: isDeploy ? 200 : 54 }}>
       <div className="h-full flex flex-col justify-between px-4 py-8 text-white text-md">
         <div className="flex flex-col gap-12 mt-16">
+          <SidebarItem name={"Accueil"} icon={<IoMdHome size={20} />} route={"/dashboard"} isDeploy={isDeploy} />
           <SidebarItem name={"Cours"} icon={<FaBookBookmark size={20} />} route={"/courses"} isDeploy={isDeploy} />
           <SidebarItem name={"Challenge"} icon={<AiTwotoneExperiment size={20} />} route={"/challenges"} isDeploy={isDeploy} />
         </div>

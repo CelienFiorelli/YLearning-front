@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider";
 import Base from "../Base";
-import { createChallengeComplete, getChallenge, getChallengeReviews, getTechnologies } from "../../../services/challengeRequest";
+import { createChallengeComplete, getChallenge, getChallengeCompletes, getChallengeReviews, getTechnologies } from "../../../services/challengeRequest";
 import { useNavigate, useParams } from "react-router";
 import { AiTwotoneExperiment } from "react-icons/ai";
 import LevelBadge from '../../atoms/LevelBadge';
@@ -14,34 +14,36 @@ import Select from "react-select";
 
 const ChallengePreview = () => {
     const { id } = useParams();
-    const { token } = useContext(AuthContext);
+    const { token, userId } = useContext(AuthContext);
     const [challenge, setChallenge] = useState(null);
+    const [challengeComplete, setChallengeComplete] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [technologies, setTechnologies] = useState([]);
     const [selectedTechnologie, setSelectedTechnologie] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!token) return
+        if (!token || !userId) return
         (async () => {
             const challengesRes = await getChallenge(id, token);
             setChallenge(challengesRes);
             const reviewsRes = await getChallengeReviews(id, token);
             setReviews(reviewsRes);
             const technologiesRes = await getTechnologies(token);
-            console.log(technologiesRes);
             setTechnologies(technologiesRes.map(t => {
                 return {
                     label: t.name,
                     value: t.id
                 }
             }));
+            const challengeCompletesRes = await getChallengeCompletes(userId, token);
+            setChallengeComplete(challengeCompletesRes.find(cc => cc.challenge.id == id))
         })();
-    }, [token])
+    }, [token, userId])
 
     const startChallenge = async () => {
-        const challengeComplete = await createChallengeComplete(selectedTechnologie, id, token);
-        navigate(`/challenges/${challengeComplete.id}/complete`)
+        const newChallengeComplete = await createChallengeComplete(selectedTechnologie, id, token);
+        navigate(`/challenges/${newChallengeComplete.id}/complete`)
     }
 
     return (
@@ -76,26 +78,35 @@ const ChallengePreview = () => {
                                 {challenge.description}
                             </div>
                         </div>
-                        <div className="flex gap-8 justify-center items-end">
-                            <div>
-                                <div className="text-slate-200 mb-1">Avec quel langage voulez-vous faire ce challenge ?</div>
-                                <Select
-                                    onChange={(t) => setSelectedTechnologie(t.value)}
-                                    options={technologies}
-                                    name="technologie"
-                                    placeholder="Sélectionnez une technologie"
-                                    className="outline-none"
-                                />
-                            </div>
-                            <div>
-                                <button className={`flex items-center gap-2 bg-green-900 text-white px-3 py-1 rounded-md border border-green-800 ${selectedTechnologie ? 'animate-bounce':''}`}
+                        {challengeComplete ?
+                            <>
+                                {!challengeComplete.time &&
+                                    <button className="flex items-center gap-2 bg-green-900 text-white px-3 py-1 rounded-md border border-green-800"
+                                        onClick={() => navigate(`/challenges/${challengeComplete.id}/complete`)}>
+                                        <MdOutlineContentPasteSearch />
+                                        Continuer
+                                    </button>}
+                            </>
+                            : <div className="flex gap-8 justify-center items-end">
+                                <div>
+                                    <div className="text-slate-200 mb-1">Avec quel langage voulez-vous faire ce challenge ?</div>
+                                    <Select
+                                        onChange={(t) => setSelectedTechnologie(t.value)}
+                                        options={technologies}
+                                        name="technologie"
+                                        placeholder="Sélectionnez une technologie"
+                                        className="outline-none"
+                                    />
+                                </div>
+                                <div>
+                                    <button className={`flex items-center gap-2 bg-green-900 text-white px-3 py-1 rounded-md border border-green-800 ${selectedTechnologie ? 'animate-bounce' : ''}`}
                                         onClick={() => startChallenge()}
                                         disabled={!selectedTechnologie}>
-                                    <MdOutlineContentPasteSearch />
-                                    Commencer
-                                </button>
-                            </div>
-                        </div>
+                                        <MdOutlineContentPasteSearch />
+                                        Commencer
+                                    </button>
+                                </div>
+                            </div>}
                     </div>
                 </div>}
                 <div className="w-1/3">

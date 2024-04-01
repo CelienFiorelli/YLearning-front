@@ -26,3 +26,26 @@ export const createUserPersonna = async (email, username, phone, password) => {
     throw error.response.data;
   }
 };
+
+export const getUserData = async (token) => {
+  try {
+    const response = await axios.get(`/api/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const createUser = async (user) => {
+  try {
+    const response = await axios.post(`auth/register`, user);
+    return response.status;
+  } catch (error) {
+    console.log(error.response);
+    throw error.response;
+  }
+};
