@@ -1,15 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import Base from "../Base";
-import { getChallengeComplete, updateChallengeComplete } from "../../../services/challengeRequest";
-import { useParams } from "react-router";
+import { finishChallenge, getChallengeComplete, updateChallengeComplete } from "../../../services/challengeRequest";
+import { Navigate, useNavigate, useParams } from "react-router";
 import { AuthContext } from "../AuthProvider";
 import Editor from '@monaco-editor/react';
 import { FaSave } from "react-icons/fa";
+import { FaFlagCheckered } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
 
 export const ChallengeComplete = () => {
     const { id } = useParams();
     const { token } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [challengeComplete, setChallengeComplete] = useState(null);
     const [response, setResponse] = useState(null);
     const [savedResponse, setSavedResponse] = useState(null);
@@ -39,6 +41,12 @@ export const ChallengeComplete = () => {
             saveResponse();
         }
     }
+    
+    const validateChallenge = async () => {
+        await finishChallenge(id, token);
+        navigate('/dashboard');
+    }
+
 
     return (
         <Base>
@@ -62,6 +70,13 @@ export const ChallengeComplete = () => {
                 <div className="w-1/3">
                     <div className="text-justify bg-slate-100 text-slate-800 p-2 rounded-sm decoration-dotted underline decoration-1 underline-offset-4">
                         {challengeComplete.challenge.description}
+                    </div>
+                    <div className="flex justify-center mt-4">
+                        <button className="flex items-center gap-2 bg-green-900 text-white px-3 py-1 rounded-md border border-green-800"
+                                onClick={() => validateChallenge()}>
+                            <FaFlagCheckered />
+                            Envoyer
+                        </button>
                     </div>
                 </div>
             </div>}

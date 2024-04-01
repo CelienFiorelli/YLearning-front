@@ -87,11 +87,39 @@ export const getChallengeComplete = async (id, token) => {
   }
 };
 
+export const getChallengeCompletes = async (userId, token) => {
+  try {
+    const response = await axios.get(`/api/user/${userId}/challenge`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const updateChallengeComplete = async (id, response, token) => {
   try {
     const responseData = await axios.put(`/api/challenge/complete/${id}`, {
       response: response
     }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return responseData.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const finishChallenge = async (id, token) => {
+  try {
+    const responseData = await axios.post(`api/challenge/complete/${id}/finish`, null, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
