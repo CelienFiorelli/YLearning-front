@@ -2,11 +2,14 @@ import React from "react";
 import { AiTwotoneExperiment } from "react-icons/ai";
 import LevelBadge from '../../atoms/LevelBadge';
 import { IoMdTime } from "react-icons/io";
+import { useNavigate } from "react-router";
 
 
 export const Card = ({ challenge }) => {
+    const navigate = useNavigate();
+
     return (
-        <div className="rounded-md bg-[#606466] border border-gray-400 px-2 cursor-pointer">
+        <div className="rounded-md bg-[#606466] border border-gray-400 px-2 cursor-pointer" onClick={() => navigate(`/challenges/${challenge.id}`)}>
             <div className="flex justify-between">
                 <div className="font-semibold text-lg text-white">Titre</div>
                 <div className="flex gap-2 items-center">

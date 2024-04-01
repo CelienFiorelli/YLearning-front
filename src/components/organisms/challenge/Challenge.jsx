@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
-import { AuthContext } from "./AuthProvider";
-import Base from "./Base";
-import { getChallenges } from "../../services/challengeRequest";
-import Card from "../molecules/challenge/Card";
+import { AuthContext } from "../AuthProvider";
+import Base from "../Base";
+import { getChallenges } from "../../../services/challengeRequest";
+import Card from "../../molecules/challenge/Card";
 
 const Challenge = () => {
   const { token } = useContext(AuthContext);
@@ -19,7 +19,7 @@ const Challenge = () => {
 
   return (
     <Base>
-      <div className="h-full overflow-scroll">
+      <div className="h-full">
         <div className="text-2xl font-medium my-12 text-white">
           Challenges disponibles :
         </div>

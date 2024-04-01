@@ -8,7 +8,7 @@ const Base = ({ children }) => {
       <div className="relative" style={{ height: '100%', width: 72 }}>
         <SideBar />
       </div>
-      <div className="h-full mx-2 backdrop-blur-sm" style={{ height: '100%', width: 'calc(100% - 88px)' }}>
+      <div className="h-full mx-2 overflow-scroll" style={{ height: '100%', width: 'calc(100% - 88px)' }}>
         {children}
       </div>
     </div>

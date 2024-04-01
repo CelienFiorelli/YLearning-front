@@ -18,7 +18,7 @@ export const LevelBadge = ({ level }) => {
     ]
 
     return (
-        <span class={`text-sm font-medium me-2 px-2.5 py-0.5 rounded ${levels[level - 1]}`}>{labels[level - 1]}</span>
+        <span className={`text-sm font-medium me-2 px-2.5 py-0.5 rounded ${levels[level - 1]}`}>{labels[level - 1]}</span>
     );
 };
 

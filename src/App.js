@@ -6,8 +6,9 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import Preview from "./components/atoms/Preview";
 import Profile from "./components/organisms/Profile";
 import Dashboard from "./components/organisms/Dashboard";
-import Challenge from "./components/organisms/Challenge";
+import Challenge from "./components/organisms/challenge/Challenge";
 import Course from "./components/organisms/Course";
+import ChallengePreview from "./components/organisms/challenge/ChallengePreview";
 
 function App() {
   return (
@@ -22,7 +23,10 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/courses" element={<Course />} />
-              <Route path="/challenges" element={<Challenge />} />
+              <Route path="/challenges">
+                <Route path="" element={<Challenge />} />
+                <Route path=":id" element={<ChallengePreview />} />
+              </Route>
             </Route>
           </Route>
         </Routes>
