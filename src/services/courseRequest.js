@@ -30,18 +30,12 @@ export const getCourse = async (id, token) => {
 
 export const getCourseSections = async (id, token) => {
   try {
-    const sections = await axios.get(`/api/course/${id}/sections`, {
+    const data = await axios.get(`/api/course/${id}/section/responses`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    const response = await axios.get(`/api/section/${id}/responses`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    return {sections: sections.data, responses: response.data};
+    return data.data
   } catch (error) {
     throw error.response.data;
   }
