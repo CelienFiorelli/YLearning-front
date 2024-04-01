@@ -32,13 +32,7 @@ const LoginPage = () => {
   });
   return (
     <Base>
-      <Navbar>
-        <Button
-          label={"S'inscrire"}
-          onClick={() => navigate("/auth/register")}
-          customClass="w-32 hover:bg-lime-600 hover:border-lime-400"
-        />
-      </Navbar>
+      <Navbar />
       <div className="flex justify-center m-14">
         <div>
           <div className="relative p-4 w-full max-w-md max-h-full">
